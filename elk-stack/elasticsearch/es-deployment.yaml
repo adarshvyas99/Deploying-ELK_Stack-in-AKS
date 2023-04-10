@@ -16,6 +16,9 @@ spec:
       containers:
       - name: elasticsearch
         image: docker.elastic.co/elasticsearch/elasticsearch:7.13.4
+        volumeMounts:
+        - name: elasticsearch-data
+          mountPath: /usr/share/elasticsearch/data        
         ports:
         - containerPort: 9200
           name: rest
@@ -33,3 +36,7 @@ spec:
         env:
         - name: discovery.type
           value: single-node
+      volumes:
+      - name: elasticsearch-data
+        persistentVolumeClaim:
+          claimName: elasticsearch-pvc

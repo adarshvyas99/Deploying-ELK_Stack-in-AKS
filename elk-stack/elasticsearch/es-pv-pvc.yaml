@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: elasticsearch-pv
+  namespace: elk-stack
+spec:
+  capacity:
+    storage: 7Gi
+  accessModes:
+    - ReadWriteOnce
+  azureDisk:
+    kind: Managed
+    diskName: elasticsearch-pv-disk
+    diskURI: /subscriptions/4c7aa480-7214-4bdc-9f66-95e6b2f45da8/resourceGroups/socialwell-elk-stack-rg/providers/Microsoft.Compute/disks/elasticsearch-pv-disk
+    cachingMode: None
+    fsType: ext4
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: elasticsearch-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 7Gi
+  storageClassName: azure-disk
+  selector:
+    matchLabels:
+      app: elasticsearch

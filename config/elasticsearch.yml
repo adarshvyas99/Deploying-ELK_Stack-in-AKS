@@ -1,0 +1,3 @@
+cluster.name: my-socialwell-cluster
+node.name: my-socialwell-node
+network.host: 0.0.0.0
